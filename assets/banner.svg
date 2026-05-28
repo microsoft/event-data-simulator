@@ -1,0 +1,117 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 250" width="1000" height="250">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#1a1f6c"/>
+      <stop offset="50%" style="stop-color:#2d2a7a"/>
+      <stop offset="100%" style="stop-color:#5b2d8e"/>
+    </linearGradient>
+    <linearGradient id="accent" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#4fc3f7"/>
+      <stop offset="100%" style="stop-color:#ab47bc"/>
+    </linearGradient>
+    <linearGradient id="rti-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#26c6da"/>
+      <stop offset="100%" style="stop-color:#7e57c2"/>
+    </linearGradient>
+    <!-- Animated streaming gradient for accent line -->
+    <linearGradient id="stream-grad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#4fc3f7">
+        <animate attributeName="stop-color" values="#4fc3f7;#ab47bc;#4fc3f7" dur="3s" repeatCount="indefinite"/>
+      </stop>
+      <stop offset="50%" style="stop-color:#7e57c2">
+        <animate attributeName="stop-color" values="#7e57c2;#4fc3f7;#7e57c2" dur="3s" repeatCount="indefinite"/>
+      </stop>
+      <stop offset="100%" style="stop-color:#ab47bc">
+        <animate attributeName="stop-color" values="#ab47bc;#4fc3f7;#ab47bc" dur="3s" repeatCount="indefinite"/>
+      </stop>
+    </linearGradient>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1000" height="250" rx="12" fill="url(#bg)"/>
+
+  <!-- Subtle grid pattern -->
+  <g opacity="0.04" stroke="#ffffff" stroke-width="0.5">
+    <line x1="0" y1="50" x2="1000" y2="50"/>
+    <line x1="0" y1="100" x2="1000" y2="100"/>
+    <line x1="0" y1="150" x2="1000" y2="150"/>
+    <line x1="0" y1="200" x2="1000" y2="200"/>
+    <line x1="200" y1="0" x2="200" y2="250"/>
+    <line x1="400" y1="0" x2="400" y2="250"/>
+    <line x1="600" y1="0" x2="600" y2="250"/>
+    <line x1="800" y1="0" x2="800" y2="250"/>
+  </g>
+
+  <!-- Title — fade in -->
+  <text x="500" y="100" text-anchor="middle" font-family="Segoe UI, -apple-system, Helvetica, Arial, sans-serif" font-size="38" font-weight="600" fill="#ffffff" letter-spacing="0.5" opacity="0">
+    Fabric Event Data Simulator
+    <animate attributeName="opacity" from="0" to="1" dur="1s" begin="0.3s" fill="freeze"/>
+  </text>
+
+  <!-- Animated accent line — expands from centre -->
+  <rect x="500" y="130" width="0" height="2" rx="1" fill="url(#stream-grad)">
+    <animate attributeName="width" from="0" to="300" dur="0.8s" begin="1s" fill="freeze"/>
+    <animate attributeName="x" from="500" to="350" dur="0.8s" begin="1s" fill="freeze"/>
+  </rect>
+
+  <!-- Subtitle — fade in after line -->
+  <text x="500" y="160" text-anchor="middle" font-family="Segoe UI, -apple-system, Helvetica, Arial, sans-serif" font-size="18" font-weight="400" fill="#b0bec5" letter-spacing="3" opacity="0">
+    DEMOS · PoCs · TESTING
+    <animate attributeName="opacity" from="0" to="1" dur="0.8s" begin="1.5s" fill="freeze"/>
+  </text>
+
+  <!-- Fabric RTI icon — fade in + pulse -->
+  <g transform="translate(470, 185)" opacity="0">
+    <animate attributeName="opacity" from="0" to="0.85" dur="0.8s" begin="2s" fill="freeze"/>
+
+    <!-- Signal arcs — sequential pulse animation -->
+    <path d="M20 25 Q28 15, 36 25" stroke="url(#rti-grad)" stroke-width="2.5" fill="none" stroke-linecap="round">
+      <animate attributeName="opacity" values="1;0.4;1" dur="2s" begin="2.5s" repeatCount="indefinite"/>
+    </path>
+    <path d="M14 25 Q28 8, 42 25" stroke="url(#rti-grad)" stroke-width="2.5" fill="none" stroke-linecap="round" opacity="0.7">
+      <animate attributeName="opacity" values="0.7;0.2;0.7" dur="2s" begin="2.8s" repeatCount="indefinite"/>
+    </path>
+    <path d="M8 25 Q28 1, 48 25" stroke="url(#rti-grad)" stroke-width="2.5" fill="none" stroke-linecap="round" opacity="0.4">
+      <animate attributeName="opacity" values="0.4;0.1;0.4" dur="2s" begin="3.1s" repeatCount="indefinite"/>
+    </path>
+
+    <!-- Center dot — breathing pulse -->
+    <circle cx="28" cy="30" r="4" fill="url(#rti-grad)">
+      <animate attributeName="r" values="4;5.5;4" dur="2s" begin="2.5s" repeatCount="indefinite"/>
+      <animate attributeName="opacity" values="1;0.7;1" dur="2s" begin="2.5s" repeatCount="indefinite"/>
+    </circle>
+
+    <!-- Label -->
+    <text x="28" y="52" text-anchor="middle" font-family="Segoe UI, -apple-system, Helvetica, Arial, sans-serif" font-size="11" font-weight="500" fill="#78909c" letter-spacing="1">
+      REAL-TIME INTELLIGENCE
+    </text>
+  </g>
+
+  <!-- Corner dots — subtle breathing -->
+  <circle cx="30" cy="30" r="3" fill="#4fc3f7" opacity="0.3">
+    <animate attributeName="opacity" values="0.3;0.6;0.3" dur="4s" repeatCount="indefinite"/>
+  </circle>
+  <circle cx="970" cy="30" r="3" fill="#ab47bc" opacity="0.3">
+    <animate attributeName="opacity" values="0.3;0.6;0.3" dur="4s" begin="1s" repeatCount="indefinite"/>
+  </circle>
+  <circle cx="30" cy="220" r="3" fill="#ab47bc" opacity="0.3">
+    <animate attributeName="opacity" values="0.3;0.6;0.3" dur="4s" begin="2s" repeatCount="indefinite"/>
+  </circle>
+  <circle cx="970" cy="220" r="3" fill="#4fc3f7" opacity="0.3">
+    <animate attributeName="opacity" values="0.3;0.6;0.3" dur="4s" begin="3s" repeatCount="indefinite"/>
+  </circle>
+
+  <!-- Streaming data particles — flowing left to right across the banner -->
+  <circle cx="0" cy="205" r="1.5" fill="#4fc3f7" opacity="0">
+    <animate attributeName="cx" from="-10" to="1010" dur="6s" begin="3s" repeatCount="indefinite"/>
+    <animate attributeName="opacity" values="0;0.6;0.6;0" dur="6s" begin="3s" repeatCount="indefinite"/>
+  </circle>
+  <circle cx="0" cy="210" r="1" fill="#7e57c2" opacity="0">
+    <animate attributeName="cx" from="-10" to="1010" dur="4.5s" begin="3.5s" repeatCount="indefinite"/>
+    <animate attributeName="opacity" values="0;0.5;0.5;0" dur="4.5s" begin="3.5s" repeatCount="indefinite"/>
+  </circle>
+  <circle cx="0" cy="200" r="1.2" fill="#ab47bc" opacity="0">
+    <animate attributeName="cx" from="-10" to="1010" dur="5.2s" begin="4s" repeatCount="indefinite"/>
+    <animate attributeName="opacity" values="0;0.4;0.4;0" dur="5.2s" begin="4s" repeatCount="indefinite"/>
+  </circle>
+</svg>

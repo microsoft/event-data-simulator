@@ -1,5 +1,9 @@
 # Event Data Simulator
 
+<p align="center">
+  <img src="assets/banner.svg" alt="Fabric Event Data Simulator — Demos · PoCs · Testing" width="100%"/>
+</p>
+
 > **Install in one command. Stream in seconds.**
 
 Stream JSON events to **Microsoft Fabric Real-Time Intelligence (RTI) Eventstreams** and **Azure Event Hubs** — designed for Solution Engineers building custom demos.
