@@ -114,7 +114,11 @@ def format_duration(seconds: float) -> str:
 
 
 class EventSender:
-    """Sends events to an Event Hub / Eventstream Custom Endpoint."""
+    """Sends events to an Event Hub / Eventstream Custom Endpoint.
+
+    Events are sent as JSON with content_type='application/json' per
+    the MS Learn EventData documentation (RFC2045 Section 5).
+    """
 
     MAX_RETRIES = 3
     RETRY_BASE_DELAY = 1.0  # seconds
@@ -129,7 +133,7 @@ class EventSender:
             kwargs["eventhub_name"] = eventhub_name
 
         self._producer = EventHubProducerClient.from_connection_string(
-            connection_string,
+            conn_str=connection_string,
             **kwargs,
         )
         self._stats = StreamStats()
@@ -236,6 +240,7 @@ class EventSender:
                 record = {**record, config.timestamp_field: config.format_timestamp()}
 
             event_data = EventData(json.dumps(record, default=str).encode("utf-8"))
+            event_data.content_type = "application/json"
 
             try:
                 batch.add(event_data)

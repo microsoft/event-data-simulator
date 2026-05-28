@@ -110,7 +110,7 @@ The simulator auto-detects two formats:
 {"id": 2, "value": 38.1, "timestamp": "2025-01-15T10:00:01Z"}
 ```
 
-Each JSON object becomes a separate event streamed to the Eventstream.
+Each JSON object becomes a separate event streamed to the Eventstream. Events are sent with `content_type: application/json` so downstream consumers (KQL, Eventstream processors, etc.) can auto-parse them.
 
 ## Configuration File
 
