@@ -1,0 +1,48 @@
+# Event Data Simulator — Configuration File
+# Save as config.yaml and run with: rti-simulator --config config.yaml
+# All settings are optional. CLI flags override config file values.
+
+# ── Data file ──────────────────────────────────────────────────────────
+# Path to your JSON file (relative to this config file, or absolute)
+file: sample-data/finance.json
+
+# ── Connection ─────────────────────────────────────────────────────────
+# Eventstream / Event Hub connection string
+# Get it from: Fabric Eventstream > Custom Endpoint > Details > SAS Key Authentication
+connection_string: "Endpoint=sb://<your-namespace>.servicebus.windows.net/;SharedAccessKeyName=<key-name>;SharedAccessKey=<key>;EntityPath=<eventhub-name>"
+
+# Event Hub name (only needed if connection string lacks EntityPath)
+# eventhub_name: my-eventhub
+
+# ── Rate control (pick one: eps, interval, or burst) ───────────────────
+eps: 1.0              # Events per second (e.g. 0.5 = one every 2s, 10 = ten per second)
+# interval: 2.0      # Seconds between events (alternative to eps)
+# burst: true         # Send as fast as possible, no rate limiting
+
+jitter: 0             # Random ±% variation in timing (0–100), 0 = uniform spacing
+
+# ── Playback ──────────────────────────────────────────────────────────
+# loop: true          # Replay file forever until Ctrl+C or duration limit
+repeat: 1             # Number of passes (1 = single pass, 0 = infinite)
+# duration: 5m        # Max run time: 30s, 5m, 1h, 1h30m, or plain seconds
+
+# ── Display ───────────────────────────────────────────────────────────
+# quiet: true         # Suppress all output except errors
+# verbose: true       # Show each event payload as it's sent
+# no_progress: true   # Hide progress bar, keep banner and summary
+
+# ── Advanced ──────────────────────────────────────────────────────────
+# batch_size: 100     # Max events per batch (default: auto, up to 1MB)
+
+# ── Timestamp injection ──────────────────────────────────────────────
+# Overwrite a field in each event with the current UTC timestamp at send time.
+# This keeps timestamps fresh so downstream KQL queries, dashboards, and alerts
+# see "live" data instead of stale dates from the original file.
+# timestamp_field: timestamp              # JSON field name to overwrite
+# timestamp_format: "%Y-%m-%dT%H:%M:%SZ"  # strftime format (default: ISO 8601)
+#
+# Common formats:
+#   ISO 8601 (default): "%Y-%m-%dT%H:%M:%SZ"          → 2025-05-28T09:30:00Z
+#   With milliseconds:  "%Y-%m-%dT%H:%M:%S.%fZ"       → 2025-05-28T09:30:00.123456Z
+#   Date only:          "%Y-%m-%d"                     → 2025-05-28
+#   Unix-style:         "%Y-%m-%d %H:%M:%S"            → 2025-05-28 09:30:00

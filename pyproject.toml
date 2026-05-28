@@ -1,0 +1,46 @@
+[build-system]
+requires = ["setuptools>=68.0", "wheel"]
+build-backend = "setuptools.backends._legacy:_Backend"
+
+[project]
+name = "event-data-simulator"
+version = "0.1.0"
+description = "Stream JSON events to Microsoft Fabric Eventstreams and Azure Event Hubs"
+readme = "README.md"
+requires-python = ">=3.9"
+license = {text = "MIT"}
+authors = [
+    {name = "Microsoft"},
+]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Topic :: Software Development :: Testing",
+]
+dependencies = [
+    "azure-eventhub>=5.11.0",
+    "python-dotenv>=1.0.0",
+    "typer>=0.12.0",
+    "rich>=13.0.0",
+    "pyyaml>=6.0",
+]
+
+[project.urls]
+Repository = "https://github.com/microsoft/event-data-simulator"
+Issues = "https://github.com/microsoft/event-data-simulator/issues"
+
+[project.scripts]
+rti-simulator = "simulator.cli:app"
+
+[tool.setuptools.packages.find]
+include = ["simulator*"]
+
+[tool.setuptools.package-data]
+simulator = ["../sample-data/*.json", "../config.example.yaml"]
