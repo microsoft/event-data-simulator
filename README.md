@@ -77,9 +77,9 @@ EVENT_HUB_CONNECTION_STRING=Endpoint=sb://your-namespace.servicebus.windows.net/
 **Stream events:**
 
 ```bash
-rti-simulator sample-data/finance.json
-rti-simulator sample-data/healthcare.json --eps 10 --loop
-rti-simulator sample-data/retail_commerce.json --duration 5m --timestamp-field timestamp
+rti-simulator finance.json
+rti-simulator healthcare.json --eps 10 --loop
+rti-simulator retail_commerce.json --duration 5m --timestamp-field timestamp
 rti-simulator --config config.yaml
 ```
 
@@ -129,7 +129,7 @@ rti-simulator --config config.yaml
 **Example `config.yaml`:**
 
 ```yaml
-file: sample-data/finance.json
+file: finance.json
 connection_string: "Endpoint=sb://..."
 eps: 10
 jitter: 20
@@ -255,31 +255,31 @@ This keeps timestamps fresh so downstream KQL queries, dashboards, and alerts se
 rti-simulator
 
 # Preview your data before sending
-rti-simulator sample-data/finance.json --preview 3
+rti-simulator finance.json --preview 3
 
 # Dry run — check file validity and estimated duration
-rti-simulator sample-data/healthcare.json --dry-run
+rti-simulator healthcare.json --dry-run
 
 # Stream at 10 eps with ±20% jitter for realistic timing
-rti-simulator sample-data/finance.json --eps 10 --jitter 20
+rti-simulator finance.json --eps 10 --jitter 20
 
 # Send one event every 2 seconds
-rti-simulator sample-data/travel_transport.json --interval 2.0
+rti-simulator travel_transport.json --interval 2.0
 
 # Burst-send everything (load test / seed data)
-rti-simulator sample-data/retail_commerce.json --burst
+rti-simulator retail_commerce.json --burst
 
 # Stream for exactly 30 minutes with live timestamps, looping as needed
-rti-simulator sample-data/local_gov.json --duration 30m --timestamp-field timestamp
+rti-simulator local_gov.json --duration 30m --timestamp-field timestamp
 
 # 3 passes at 5 eps, verbose output
-rti-simulator sample-data/media_comms.json --eps 5 --repeat 3 --verbose
+rti-simulator media_comms.json --eps 5 --repeat 3 --verbose
 
 # Override connection string directly
-rti-simulator sample-data/finance.json -c "Endpoint=sb://..."
+rti-simulator finance.json -c "Endpoint=sb://..."
 
 # Quiet mode for scripting
-rti-simulator sample-data/finance.json --eps 20 --loop --duration 1h --quiet
+rti-simulator finance.json --eps 20 --loop --duration 1h --quiet
 ```
 
 ## Project Structure
@@ -302,16 +302,17 @@ event-data-simulator/
 │   ├── cli.py             # Typer CLI with all options
 │   ├── config.py          # YAML config file loader + merge logic
 │   ├── loader.py          # JSON Array / NDJSON loader
+│   ├── samples.py         # Bundled sample dataset discovery + resolution
 │   ├── sender.py          # Event Hub sender + rate control
 │   ├── display.py         # Rich progress, panels, summaries
-│   └── wizard.py          # Guided first-run wizard
-└── sample-data/
-    ├── finance.json
-    ├── healthcare.json
-    ├── retail_commerce.json
-    ├── media_comms.json
-    ├── travel_transport.json
-    └── local_gov.json
+│   ├── wizard.py          # Guided first-run wizard
+│   └── sample_data/       # Bundled industry sample datasets
+│       ├── finance.json
+│       ├── healthcare.json
+│       ├── retail_commerce.json
+│       ├── media_comms.json
+│       ├── travel_transport.json
+│       └── local_gov.json
 ```
 
 ## Future Roadmap

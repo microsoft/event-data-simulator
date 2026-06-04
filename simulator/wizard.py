@@ -14,43 +14,9 @@ from rich.syntax import Syntax
 from rich.table import Table
 
 from simulator import __version__
+from simulator.samples import get_sample_dir, list_available_samples
 
 console = Console()
-
-# Sample datasets shipped with the tool
-_SAMPLE_DIR = Path(__file__).resolve().parent.parent / "sample-data"
-_SAMPLES = [
-    {
-        "file": "finance.json",
-        "label": "💳 Finance",
-        "description": "Credit card fraud detection events with risk scoring",
-    },
-    {
-        "file": "healthcare.json",
-        "label": "🏥 Healthcare",
-        "description": "Patient vital signs monitoring from hospital wards",
-    },
-    {
-        "file": "retail_commerce.json",
-        "label": "🛒 Retail & Commerce",
-        "description": "Point-of-sale transactions across store locations",
-    },
-    {
-        "file": "media_comms.json",
-        "label": "📡 Media & Communications",
-        "description": "Network interface traffic and throughput telemetry",
-    },
-    {
-        "file": "travel_transport.json",
-        "label": "🚆 Travel & Transport",
-        "description": "Live train departure and arrival events",
-    },
-    {
-        "file": "local_gov.json",
-        "label": "🏛️  Local Government",
-        "description": "Environmental sensor readings across council districts",
-    },
-]
 
 
 def should_launch_wizard(
@@ -134,7 +100,7 @@ def run_wizard() -> None:
     table.add_column("Dataset", min_width=20)
     table.add_column("Description")
 
-    available_samples = _get_available_samples()
+    available_samples = list_available_samples()
 
     for i, sample in enumerate(available_samples, 1):
         table.add_row(str(i), sample["label"], sample["description"])
@@ -151,7 +117,7 @@ def run_wizard() -> None:
 
     if choice <= len(available_samples):
         sample = available_samples[choice - 1]
-        data_file = _SAMPLE_DIR / sample["file"]
+        data_file = get_sample_dir() / sample["file"]
         console.print(f"  Selected: [bold]{sample['label']}[/bold]")
     else:
         file_path = Prompt.ask("[bold]Path to your JSON file[/bold]")
@@ -205,11 +171,6 @@ def run_wizard() -> None:
 
     # ── Done ─────────────────────────────────────────────────────────────
     _show_next_steps(data_file)
-
-
-def _get_available_samples() -> list[dict]:
-    """Return only samples whose files actually exist on disk."""
-    return [s for s in _SAMPLES if (_SAMPLE_DIR / s["file"]).exists()]
 
 
 def _save_connection_string(conn_str: str) -> None:

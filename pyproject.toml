@@ -43,4 +43,4 @@ rti-simulator = "simulator.cli:app"
 include = ["simulator*"]
 
 [tool.setuptools.package-data]
-simulator = ["../sample-data/*.json", "../config.example.yaml"]
+simulator = ["sample_data/*.json"]

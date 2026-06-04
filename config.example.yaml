@@ -4,7 +4,7 @@
 
 # ── Data file ──────────────────────────────────────────────────────────
 # Path to your JSON file (relative to this config file, or absolute)
-file: sample-data/finance.json
+file: finance.json
 
 # ── Connection ─────────────────────────────────────────────────────────
 # Eventstream / Event Hub connection string

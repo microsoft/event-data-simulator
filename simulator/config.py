@@ -87,8 +87,14 @@ def load_config_file(path: Path) -> SimulatorConfig:
             if field_name == "file" and value is not None:
                 file_path = Path(value)
                 if not file_path.is_absolute():
-                    file_path = path.parent / file_path
-                value = file_path.resolve()
+                    config_relative = path.parent / file_path
+                    if config_relative.exists():
+                        value = config_relative.resolve()
+                    else:
+                        # Keep as bare Path — CLI sample resolution handles fallback
+                        value = file_path
+                else:
+                    value = file_path
 
             # Coerce duration to string (YAML may parse '5m' as string, but '60' as int)
             if field_name == "duration" and value is not None:

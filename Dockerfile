@@ -10,9 +10,8 @@ WORKDIR /app
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Copy application code and sample data
+# Copy application code (includes sample data in simulator/sample_data/)
 COPY simulator/ simulator/
-COPY sample-data/ sample-data/
 COPY config.example.yaml .
 COPY pyproject.toml .
 COPY README.md .

@@ -269,7 +269,7 @@ def main(
 
     # ── Build CLI config (only values explicitly set) ────────────────────
     cli_cfg = SimulatorConfig(
-        file=file.resolve() if file else None,
+        file=file if file else None,
         connection_string=connection_string,
         eventhub_name=eventhub_name,
         eps=eps,
@@ -310,9 +310,20 @@ def main(
         )
         raise typer.Exit(1)
 
-    if not cfg.file.exists():
-        display.show_error(f"File not found: {cfg.file}")
+    # Resolve file path — try bundled samples as fallback
+    from simulator.samples import resolve_data_file
+
+    resolved = resolve_data_file(cfg.file)
+    if resolved is None:
+        from simulator.samples import list_available_samples
+
+        available = [s["file"] for s in list_available_samples()]
+        hint = ""
+        if available:
+            hint = f"\n  Bundled samples: {', '.join(available)}"
+        display.show_error(f"File not found: {cfg.file}{hint}")
         raise typer.Exit(1)
+    cfg.file = resolved
 
     # ── Validate mutual exclusivity ──────────────────────────────────────
     rate_opts = sum([cfg.eps is not None, cfg.interval is not None, cfg.burst])
